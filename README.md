@@ -16,15 +16,3 @@
 <!--If you want to add any image, please add the image to readme_assets folder and add the filename as below-->
 <!--![some show case picture](https://raw.githubusercontent.com/Madoshakalaka/pyckage-example-project/master/readme_assets/showcasePicture.png)-->
 a example of what pyckage can generate
-
-## How to Use
-
-<!--
-
-add some help here 
-
-```python
-
-```
-
--->
