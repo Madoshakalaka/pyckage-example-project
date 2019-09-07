@@ -28,24 +28,3 @@ add some help here
 ```
 
 -->
-
-
-
-Pip creates command line executable entry point by default
-
-You should be able to run shell command `$ pyckage-example-project` anywhere.
-
-<!--
-add some command help here
-
-
-- `$ pyckage-example-project -i filename`
-    - output: `hello world`
-
--->
-
-- `$ pyckage-example-project -h` for more help
-
-in case the command does not work (e.g. on windows when <python_dir>/Scripts is not in system path). Use the package entry:
-
-`> python -m pyckage-example-project`
