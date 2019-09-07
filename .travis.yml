@@ -1,101 +1,79 @@
 language: python
 dist: xenial
-# only intended for Linux and Mac jobs. Windows will overwrite install and script
 install: python3 -m pip install tox
 script: python3 -m tox
 stages:
-  - test
-  - "PYPI release"
+- test
+- PYPI release
 jobs:
   include:
-    # linux
-    - python: '3.7'
-    - python: '3.6'
-    - python: '3.5'
-    # osx python 3.7
-    - name: "Python: 3.7"
-      os: osx
-      # xcode 11 image comes with python 3.7
-      osx_image: xcode11
-      # language: python will error
-      language: shell
-
-
-    # osx python 3.6
-    - name: "Python: 3.6"
-      os: osx
-      osx_image: xcode11
-      language: shell
-      # switch to python 3.6
-      addons:
-        homebrew:
-          update: true
-      before_install:
-        - brew unlink python
-        - brew install --ignore-dependencies https://raw.githubusercontent.com/Homebrew/homebrew-core/f2a764ef944b1080be64bd88dca9a1d80130c558/Formula/python.rb
-        - brew switch python 3.6.5_1
-      # end switch
-
-    # osx python 3.5
-    - name: "Python: 3.5"
-      os: osx
-      osx_image: xcode11
-      language: shell
-      # switch to python 3.5
-      addons:
-        homebrew:
-          update: true
-      before_install:
-        - pyenv install 3.5.2
-        - pyenv global 3.5.2
-      # end switch
-
-
-    # windows python 3.7
-    - name: "Python: 3.7"
-      os: windows
-      # language: python will error
-      language: shell
-      # install python 3.7
-      before_install:
-        - choco install python --version 3.7.4
-        - python -m pip install --upgrade pip
-      install: python -m pip install tox
-      # On Windows, python3 does not exist
-      script: python -m tox
-      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-    # windows python 3.6
-    - name: "Python: 3.6"
-      os: windows
-      language: shell
-      before_install:
-        - choco install python --version 3.6.8
-        - python -m pip install --upgrade pip
-        - python -m pip install pipenv
-      install: python -m pip install tox
-      script: python -m tox
-      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-    # windows python 3.5
-    - name: "Python: 3.5"
-      os: windows
-      language: shell
-      before_install:
-        - choco install python --version 3.5.4
-        - python -m pip install --upgrade pip
-        - python -m pip install pipenv
-      install: python -m pip install tox
-      script: python -m tox
-      env: PATH=/c/Python35:/c/Python35/Scripts:$PATH
-    - stage: "PYPI release"
-      language: python
-      dist: xenial
-      install: pipenv install --dev pipenv-setup
-      script: pipenv-setup sync
-      after_success: ''
-      deploy:
-        provider: pypi
-        user: Madoshakalaka
-        password:
-          secure: # encrypted password
-        on:
-          tags: true
+  - python: '3.7'
+  - python: '3.6'
+  - python: '3.5'
+  - name: 'Python: 3.7'
+    os: osx
+    osx_image: xcode11
+    language: shell
+  - name: 'Python: 3.6'
+    os: osx
+    osx_image: xcode11
+    language: shell
+    addons:
+      homebrew:
+        update: true
+    before_install:
+    - brew unlink python
+    - brew install --ignore-dependencies https://raw.githubusercontent.com/Homebrew/homebrew-core/f2a764ef944b1080be64bd88dca9a1d80130c558/Formula/python.rb
+    - brew switch python 3.6.5_1
+  - name: 'Python: 3.5'
+    os: osx
+    osx_image: xcode11
+    language: shell
+    addons:
+      homebrew:
+        update: true
+    before_install:
+    - pyenv install 3.5.2
+    - pyenv global 3.5.2
+  - name: 'Python: 3.7'
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.7.4
+    - python -m pip install --upgrade pip
+    install: python -m pip install tox
+    script: python -m tox
+    env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+  - name: 'Python: 3.6'
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.6.8
+    - python -m pip install --upgrade pip
+    - python -m pip install pipenv
+    install: python -m pip install tox
+    script: python -m tox
+    env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+  - name: 'Python: 3.5'
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.5.4
+    - python -m pip install --upgrade pip
+    - python -m pip install pipenv
+    install: python -m pip install tox
+    script: python -m tox
+    env: PATH=/c/Python35:/c/Python35/Scripts:$PATH
+  - stage: PYPI release
+    language: python
+    dist: xenial
+    install: pipenv install --dev pipenv-setup
+    script: pipenv-setup sync
+    after_success: ''
+    deploy:
+      provider: pypi
+      user: Madoshakalaka
+      password:
+        secure: Sw8egrI1Sgo810FI8ZPHPmLfNMABc4AbKttDaTUaRVqmNSZpQP2m3h8YrdNW6uYqjoPO6BMQdRL0H+ampWWnv/FUwdvJHk/A8UqXeAE7Yrs0QxkTueKNIo1kh6Nw/8fMHqXNC3DE3UVgmj6S7sjxTvfdisuGLzAWr5afFlAJijibkaZsTBv5P9FP1z34I/CejRryKGwDVAfbaCt8BP7dj2Tc48nKur/1XS7S5J8//t10xsZ/JiNfB9+rtfkv7YJHxPAXZOzoHkoFg/pl+BpwixY4PJh0FX/M1KdAnPfcidIGIpm+C7HAGKWHVGXFTCjen9lHAMqLDkdlm0R/mEO04NeWMmGVQSYLM+2f+le31Qn5j0JltcMHBLsAQeBeU3I4Tz4syZQ+uuF3Fis9ArY5JES4bJ6ab8A1SE9SuubvOnQ3jt50JF0CclRWamK/mSC1zsO5Lt8+vlm5afWJXGsaRQZfaAjJofTHjArx0W9uYvPJQZdO8wRhwiA1vHRA+cg9x9jZ0GItOFXH5PFsYr3IGT9d/CGhfJ7ZoSClJjLuW9vWF4sZrG1JOwx81W5oojtKPxne/srZPKKMuMCnJW/MQTeFsdjJjzisTFjz1xDA1i0+4Kn+T43g2MLLqiNbXnVx3nq0iBb8xjOBh/3Yu8a+E0lA7kkuQ+KfGaivTRaIEcU=
+      on:
+        tags: true
