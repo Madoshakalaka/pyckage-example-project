@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Madoshakalaka/pyckage-example-project.svg)](https://travis-ci.org/Madoshakalaka/pyckage-example-project)
 [![codecov](https://codecov.io/gh/Madoshakalaka/pyckage-example-project/branch/master/graph/badge.svg)](https://codecov.io/gh/Madoshakalaka/pyckage-example-project)
-
+[![PyPI version](https://badge.fury.io/py/pyckage-example-project.svg)](https://badge.fury.io/py/pyckage-example-project)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/pyckage-example-project.svg)](https://pypi.python.org/pypi/pyckage-example-project/)
 
 a example of what pyckage can generate
 
